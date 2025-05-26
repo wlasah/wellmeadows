@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wards - Wellmeadows Hospital</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+  <div class="navbar">
+    <h1>Wellmeadows Hospital</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/patients">Patients</a>
+      <a href="/appointments">Appointments</a>
+      <a href="/medications">Medications</a>
+      <a href="/wards">Wards</a>
+      <a href="/staff">Staff</a>
+      <a href="/staff/schedule">Schedule</a>
+    </nav>
+  </div>
+</header>
+
+  <main class="container">
+    <section class="card fade-in">
+      <h2>Ward Overview</h2>
+
+      {% if message %}
+        <div class="alert success">{{ message }}</div>
+      {% endif %}
+
+      {% if wards %}
+      <table>
+        <thead>
+          <tr>
+            <th>Ward #</th>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Total Beds</th>
+            <th>Available Beds</th>
+            <th>Waiting Count</th>
+            <th>Charge Nurse</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for w in wards %}
+          <tr>
+            <td>{{ w.ward_number }}</td>
+            <td>{{ w.ward_name }}</td>
+            <td>{{ w.location }}</td>
+            <td>{{ w.total_beds }}</td>
+            <td>{{ w.available_beds }}</td>
+            <td>{{ w.waiting_count }}</td>
+            <td>{{ w.charge_nurse }}</td>
+            <td>
+              <form method="post" action="/wards/{{ w.ward_number }}/process_waiting" onsubmit="return confirm('Process top waiting patient for this ward?');">
+                <button type="submit" class="small-button">Process Waiting</button>
+              </form>
+              <form method="post" action="/wards/{{ w.ward_number }}/schedule" style="margin-top: 0.5rem;">
+                <label style="font-size: 0.8rem;">Week Starting:</label>
+                <input type="date" name="week_starting" required style="width: 125px;">
+                <button type="submit" class="small-button">Create Schedule</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+        <p>No ward data available.</p>
+      {% endif %}
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Wellmeadows Hospital. All rights reserved.</p>
+  </footer>
+</body>
+</html>

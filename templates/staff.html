@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff - Wellmeadows Hospital</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <h1>Wellmeadows Hospital</h1>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/patients">Patients</a>
+        <a href="/appointments">Appointments</a>
+        <a href="/medications">Medications</a>
+        <a href="/wards">Wards</a>
+        <a href="/staff" class="active">Staff</a>
+        <a href="/staff/schedule">Schedule</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card fade-in">
+      <h2>Staff Directory</h2>
+      {% if staff %}
+      <table>
+        <thead>
+          <tr>
+            <th>Staff #</th>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Sex</th>
+            <th>Phone</th>
+            <th>Salary</th>
+            <th>Contract</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in staff %}
+          <tr>
+            <td>{{ s[0] }}</td>
+            <td>{{ s[1] }} {{ s[2] }}</td>
+            <td>{{ s[3] }}</td>
+            <td>{{ s[4] }}</td>
+            <td>{{ s[5] }}</td>
+            <td>{{ s[6] }}</td>
+            <td>{{ 'Permanent' if s[7] == 'P' else 'Temporary' }}</td>
+            <td><a href="/staff/{{ s[0] }}" class="button">View</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+        <p>No staff records found.</p>
+      {% endif %}
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Wellmeadows Hospital. All rights reserved.</p>
+  </footer>
+</body>
+</html>

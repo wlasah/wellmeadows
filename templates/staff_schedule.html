@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Staff Schedule - Wellmeadows Hospital</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <div class="navbar">
+    <h1>Wellmeadows Hospital</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/patients">Patients</a>
+      <a href="/appointments">Appointments</a>
+      <a href="/medications">Medications</a>
+      <a href="/wards">Wards</a>
+      <a href="/staff">Staff</a>
+      <a href="/staff/schedule">Schedule</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <section class="card fade-in">
+    <h2>Staff Schedule Viewer</h2>
+
+    <form method="get" action="/staff/schedule" style="margin-bottom: 1rem;">
+      <label for="week_starting">Filter by Week Starting:</label>
+      <input type="date" name="week_starting" value="{{ week_starting }}">
+      <button type="submit">Filter</button>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% elif schedule %}
+    <table>
+      <thead>
+        <tr>
+          <th>Staff #</th>
+          <th>Name</th>
+          <th>Ward</th>
+          <th>Shift</th>
+          <th>Allocation Date</th>
+          <th>Week Starting</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in schedule %}
+        <tr>
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] or '—' }}</td>
+          <td>{{ row[3] }}</td>
+          <td>{{ row[4] }}</td>
+          <td>{{ row[5] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>No schedule data available.</p>
+    {% endif %}
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2025 Wellmeadows Hospital. All rights reserved.</p>
+</footer>
+</body>
+</html>
