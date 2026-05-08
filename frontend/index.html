@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wellmeadows Hospital — Supabase Frontend</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div>
+      <h1>Wellmeadows Hospital</h1>
+      <p class="subtitle">Supabase-powered frontend for patient, ward, appointment, staff, and medication management.</p>
+    </div>
+    <nav>
+      <a href="#home" id="nav-home">Home</a>
+      <a href="#patients" id="nav-patients">Patients</a>
+      <a href="#appointments" id="nav-appointments">Appointments</a>
+      <a href="#medications" id="nav-medications">Medications</a>
+      <a href="#wards" id="nav-wards">Wards</a>
+      <a href="#staff" id="nav-staff">Staff</a>
+      <a href="#schedule" id="nav-schedule">Schedule</a>
+      <a href="#dashboard" id="nav-dashboard">Dashboard</a>
+    </nav>
+  </header>
+
+  <main id="app" class="container"></main>
+
+  <footer>
+    <p>&copy; 2026 Wellmeadows Hospital. Powered by Supabase.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
