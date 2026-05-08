@@ -142,7 +142,7 @@ async function renderHome() {
         <p><strong>DOB:</strong> ${formatDate(result.patient.date_of_birth)}</p>
         <p><strong>Sex:</strong> ${result.patient.sex || '-'}</p>
         <p><strong>Marital status:</strong> ${result.patient.marital_status || '-'}</p>
-        <p><strong>Referring doctor:</strong> ${result.patient.referring_doctor || '-'}</p>
+        <p><strong>Referral source:</strong> ${result.patient.referral_source || '-'}</p>
         <a class="button-link" href="#patient/${result.patient.patient_number}">View full record</a>
       </div>
     `;
@@ -152,7 +152,7 @@ async function renderHome() {
 async function fetchPatient(patientNumber) {
   const { data, error } = await supabase
     .from('patients')
-    .select('patient_number,first_name,last_name,address,telephone,date_of_birth,sex,marital_status,date_registered,referring_doctor')
+    .select('patient_number,first_name,last_name,address,telephone,date_of_birth,sex,marital_status,date_registered,referral_source')
     .eq('patient_number', patientNumber)
     .single();
 
@@ -254,7 +254,7 @@ async function renderPatientDetail(patientNumber) {
       <p><strong>DOB:</strong> ${formatDate(patient.date_of_birth)}</p>
       <p><strong>Sex:</strong> ${patient.sex || '-'}</p>
       <p><strong>Marital status:</strong> ${patient.marital_status || '-'}</p>
-      <p><strong>Referring doctor:</strong> ${patient.referring_doctor || '-'}</p>
+      <p><strong>Referral source:</strong> ${patient.referral_source || '-'}</p>
     </div>
     ${statusHtml}
   `, `<a class="button-link" href="#patients">Back to patients</a>`);
@@ -313,8 +313,8 @@ async function renderRegister() {
       <select name="sex"><option value="">Choose</option><option value="M">Male</option><option value="F">Female</option></select>
       <label>Marital status</label>
       <input name="marital_status" type="text">
-      <label>Referring doctor</label>
-      <input name="referring_doctor" type="text">
+      <label>Referral source</label>
+      <input name="referral_source" type="text">
       <button type="submit">Register Patient</button>
     </form>
     <div id="registerMessage"></div>
